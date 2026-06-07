@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umut Yurdugul</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #101113;
+      --window: #1a1b1e;
+      --chrome: #24262b;
+      --chrome-border: #30333a;
+      --green: #38f27f;
+      --text: #f7f7f7;
+      --muted: #b8bec7;
+      --dim: #7f8792;
+      --red: #ff5f57;
+      --yellow: #febc2e;
+      --control-green: #28c840;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: clamp(16px, 4vw, 48px);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(56, 242, 127, 0.08), transparent 32%),
+        var(--page);
+      color: var(--text);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .terminal-window {
+      width: min(100%, 1040px);
+      overflow: hidden;
+      border: 1px solid var(--chrome-border);
+      border-radius: 8px;
+      background: var(--window);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+    }
+
+    .terminal-chrome {
+      display: flex;
+      align-items: center;
+      min-height: 42px;
+      border-bottom: 1px solid var(--chrome-border);
+      background: linear-gradient(180deg, #2a2c31 0%, var(--chrome) 100%);
+      padding: 0 14px;
+      position: relative;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .control {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+    }
+
+    .control.red {
+      background: var(--red);
+    }
+
+    .control.yellow {
+      background: var(--yellow);
+    }
+
+    .control.green {
+      background: var(--control-green);
+    }
+
+    .chrome-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--dim);
+      font-size: 13px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .terminal-screen {
+      min-height: min(74vh, 760px);
+      padding: clamp(18px, 3vw, 34px);
+      overflow-x: auto;
+      font-size: clamp(13px, 1.5vw, 17px);
+      line-height: 1.7;
+    }
+
+    .banner {
+      display: flex;
+      align-items: flex-start;
+      gap: clamp(18px, 4vw, 42px);
+      margin: 0 0 24px;
+      color: var(--green);
+    }
+
+    pre {
+      margin: 0;
+      font: inherit;
+      line-height: 1.08;
+      white-space: pre;
+    }
+
+    .ascii-name {
+      font-size: clamp(13px, 2vw, 22px);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .ascii-icon {
+      color: var(--muted);
+      font-size: clamp(12px, 1.6vw, 18px);
+      padding-top: 2px;
+    }
+
+    .entry {
+      margin: 0 0 22px;
+    }
+
+    .prompt-line,
+    .output-line {
+      display: block;
+      min-width: max-content;
+    }
+
+    .prompt {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .command {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .output {
+      color: var(--muted);
+    }
+
+    .project-name {
+      color: var(--text);
+    }
+
+    .final-line {
+      display: flex;
+      align-items: center;
+      min-width: max-content;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 0.72em;
+      height: 1.15em;
+      margin-left: 0.2em;
+      transform: translateY(0.14em);
+      background: var(--green);
+      animation: blink 1s steps(1, end) infinite;
+    }
+
+    @keyframes blink {
+      0%,
+      52% {
+        opacity: 1;
+      }
+
+      53%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+      }
+
+      .terminal-window {
+        border-radius: 8px;
+      }
+
+      .chrome-title {
+        max-width: 48vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .terminal-screen {
+        min-height: calc(100vh - 68px);
+      }
+
+      .banner {
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="terminal-window" aria-label="Umut Yurdugul terminal portfolio">
+    <div class="terminal-chrome" aria-hidden="true">
+      <div class="window-controls">
+        <span class="control red"></span>
+        <span class="control yellow"></span>
+        <span class="control green"></span>
+      </div>
+      <div class="chrome-title">terminal.umutyurdugul.dev</div>
+    </div>
+
+    <section class="terminal-screen">
+      <div class="banner" aria-label="UMUT ASCII banner">
+        <pre class="ascii-name"> 
+ _   _                 _   
+| | | |               | |  
+| | | |_ __ ___  _   _| |_ 
+| | | | '_ ` _ \| | | | __|
+| |_| | | | | | | |_| | |_ 
+ \___/|_| |_| |_|\__,_|\__|    
+                           </pre>
+      </div>
+
+      <div class="entry">
+        <span class="prompt-line"><span class="prompt">visitor@terminal.umutyurdugul.dev:~$</span> <span class="command">welcome</span></span>
+        <span class="output-line output">Hi, I'm Umut. I'm a computer engineering student and IBM Z Ambassador.</span>
+      </div>
+
+      <div class="entry">
+    <span class="prompt-line"><span class="prompt">visitor@terminal.umutyurdugul.dev:~$</span> <span class="command">social</span></span>
+    <span class="output-line output">
+        <a href="https://github.com/umutyurdugull" target="_blank" style="text-decoration: underline;">GitHub</a><br>
+        <a href="https://www.linkedin.com/in/umutyurdugul/" target="_blank" style="text-decoration: underline;">LinkedIn</a>
+    </span>
+</div>
+
+      <div class="entry">
+        <span class="prompt-line"><span class="prompt">visitor@terminal.umutyurdugul.dev:~$</span> <span class="command">projects</span></span>
+        <span class="output-line output">
+    <span class="project-name">[DotNetFrame]</span> A C#-based automation library that bridges Mainframe systems and the modern .NET ecosystem<br>
+    streamlining developer interactions and automation workflows within z/OS environments.
+</span>
+      </div>
+
+      <div class="entry">
+        <span class="prompt-line"><span class="prompt">visitor@terminal.umutyurdugul.dev:~$</span> <span class="command">skills</span></span>
+        <span class="output-line output">&gt; C#</span>
+        <span class="output-line output">&gt; Java</span>
+        <span class="output-line output">&gt; COBOL</span>
+        <span class="output-line output">&gt; z/OS</span>
+      </div>
+
+      <div class="entry">
+    <span class="prompt-line"><span class="prompt">visitor@terminal.umutyurdugul.dev:~$</span> <span class="command">about</span></span>
+    <span class="output-line output">
+        I'm a Computer Engineering student at Manisa Celal Bayar University and an IBM Z Ambassador.<br>
+        I am passionate about bridging the gap between legacy systems and modern development practices
+    </span>
+</div>
+
+      <div class="final-line">
+        <span class="prompt">visitor@terminal.umutyurdugul.dev:~$ </span><span class="cursor" aria-hidden="true"></span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
